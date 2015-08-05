@@ -1,6 +1,10 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/eduardomello/rest-api/controllers"
+)
 
 type Route struct {
 	Name        string
@@ -11,6 +15,8 @@ type Route struct {
 
 type Routes []Route
 
+var tc = controllers.NewTodoController(getSession())
+
 var routes = Routes{
 	Route{
 		"Index",
@@ -19,33 +25,33 @@ var routes = Routes{
 		Index,
 	},
 	Route{
-		"TodoIndex",
+		"ListTodos",
 		"GET",
 		"/todos",
-		TodoIndex,
+		tc.ListTodos,
 	},
 	Route{
-		"TodoShow",
+		"GetTodo",
 		"GET",
 		"/todos/{todoId}",
-		TodoShow,
+		tc.GetTodo,
 	},
 	Route{
-		"TodoCreate",
+		"CreateTodo",
 		"POST",
 		"/todos",
-		TodoCreate,
+		tc.CreateTodo,
 	},
 	Route{
-		"TodoEdit",
+		"UpdateTodo",
 		"PUT",
 		"/todos/{todoId}",
-		TodoEdit,
+		tc.UpdateTodo,
 	},
 	Route{
-		"TodoDelete",
+		"DeleteTodo",
 		"DELETE",
 		"/todos/{todoId}",
-		TodoDelete,
+		tc.DeleteTodo,
 	},
 }
